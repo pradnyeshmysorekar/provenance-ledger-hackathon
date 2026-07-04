@@ -28,6 +28,7 @@ def _storage_sink() -> ObjectStorageSink:
         config.B2_BUCKET_NAME,
         key_id=config.B2_KEY_ID,
         app_key=config.B2_APP_KEY,
+        region=config.B2_REGION,
     )
     # HIERARCHICAL key strategy keeps assets organized as
     # provider/model/date/run-id in the bucket, which is what

@@ -10,6 +10,7 @@ load_dotenv()
 B2_KEY_ID = os.environ.get("B2_KEY_ID")
 B2_APP_KEY = os.environ.get("B2_APP_KEY")
 B2_BUCKET_NAME = os.environ.get("B2_BUCKET_NAME", "provenance-ledger-hackathon")
+B2_REGION = os.environ.get("B2_REGION", "eu-central-003")
 
 # genblaze-nvidia reads its own key from the environment directly
 # (NVIDIA_API_KEY / NVAPI_KEY — both are set in .env to be safe).

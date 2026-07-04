@@ -19,7 +19,7 @@ from genblaze_nvidia import NvidiaImageProvider, NvidiaAudioProvider
 from . import config
 
 # Default models — chosen from NVIDIA NIM's free-tier-accessible catalog.
-DEFAULT_IMAGE_MODEL = "black-forest-labs/flux.1-dev"
+DEFAULT_IMAGE_MODEL = "black-forest-labs/flux.1-schnell"
 DEFAULT_AUDIO_MODEL = "nvidia/riva-tts"  # text-to-speech, mono
 
 
@@ -76,8 +76,11 @@ def run_audio_generation(prompt: str, model: str = DEFAULT_AUDIO_MODEL, **params
 
 def summarize_result(result) -> dict:
     """Flatten a Genblaze run result into the fields the ledger stores."""
-    asset = result.run.steps[0].assets[0]
     step = result.run.steps[0]
+    if not getattr(step, "assets", None):
+        error_detail = getattr(step, "error", None) or "no assets returned — see Genblaze's own step-failure output above for the exact reason (auth, model access, or rate limit)."
+        raise RuntimeError(f"Generation step produced no asset: {error_detail}")
+    asset = step.assets[0]
     return {
         "run_id": result.run.id if hasattr(result.run, "id") else None,
         "provider": step.provider if hasattr(step, "provider") else None,

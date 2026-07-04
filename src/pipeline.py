@@ -14,13 +14,15 @@ zero cost, per project ground rules.
 """
 from genblaze_core import Modality, ObjectStorageSink, KeyStrategy, Pipeline
 from genblaze_s3 import S3StorageBackend
-from genblaze_nvidia import NvidiaImageProvider, NvidiaAudioProvider
+from genblaze_google import ImagenProvider
+from genblaze_nvidia import NvidiaAudioProvider
 
 from . import config
 
-# Default models — chosen from NVIDIA NIM's free-tier-accessible catalog.
-DEFAULT_IMAGE_MODEL = "black-forest-labs/flux.1-schnell"
-DEFAULT_AUDIO_MODEL = "nvidia/magpie-tts-multilingual"  # text-to-speech, mono
+# Google Imagen — confirmed current model as of this hackathon (per Google's
+# own live API documentation, not a stale training-data reference).
+DEFAULT_IMAGE_MODEL = "imagen-4.0-generate-001"
+DEFAULT_AUDIO_MODEL = "nvidia/magpie-tts-multilingual"  # kept for later extension; not part of MVP scope
 
 
 def _storage_sink() -> ObjectStorageSink:
@@ -44,11 +46,11 @@ def run_image_generation(prompt: str, model: str = DEFAULT_IMAGE_MODEL, **params
     result = (
         Pipeline("provenance-ledger-image")
         .step(
-            NvidiaImageProvider(),
+            ImagenProvider(),
             model=model,
             prompt=prompt,
             modality=Modality.IMAGE,
-            params=params or {"cfg_scale": 4.5, "aspect_ratio": "1:1"},
+            params=params,
         )
         .run(sink=storage, timeout=600)
     )

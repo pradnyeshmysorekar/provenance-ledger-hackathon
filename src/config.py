@@ -19,6 +19,9 @@ B2_REGION = os.environ.get("B2_REGION", "eu-central-003")
 NVIDIA_KEY_PRESENT = bool(
     os.environ.get("NVIDIA_API_KEY") or os.environ.get("NVAPI_KEY")
 )
+GOOGLE_KEY_PRESENT = bool(
+    os.environ.get("GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY")
+)
 
 LEDGER_DB_PATH = os.environ.get("LEDGER_DB_PATH", "ledger.duckdb")
 
@@ -29,8 +32,8 @@ def require_credentials():
         missing.append("B2_KEY_ID")
     if not B2_APP_KEY:
         missing.append("B2_APP_KEY")
-    if not NVIDIA_KEY_PRESENT:
-        missing.append("NVIDIA_API_KEY (or NVAPI_KEY)")
+    if not GOOGLE_KEY_PRESENT:
+        missing.append("GOOGLE_API_KEY (or GEMINI_API_KEY)")
     if missing:
         raise RuntimeError(
             "Missing required credentials in .env: " + ", ".join(missing)

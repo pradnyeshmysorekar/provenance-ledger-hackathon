@@ -1,0 +1,4 @@
+.env
+ledger.duckdb
+__pycache__/
+*.pyc

@@ -20,7 +20,7 @@ from . import config
 
 # Default models — chosen from NVIDIA NIM's free-tier-accessible catalog.
 DEFAULT_IMAGE_MODEL = "black-forest-labs/flux.1-schnell"
-DEFAULT_AUDIO_MODEL = "nvidia/riva-tts"  # text-to-speech, mono
+DEFAULT_AUDIO_MODEL = "nvidia/magpie-tts-multilingual"  # text-to-speech, mono
 
 
 def _storage_sink() -> ObjectStorageSink:

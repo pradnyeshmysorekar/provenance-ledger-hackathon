@@ -19,7 +19,7 @@ from genblaze_nvidia import NvidiaImageProvider, NvidiaAudioProvider
 from . import config
 
 # Default models — chosen from NVIDIA NIM's free-tier-accessible catalog.
-DEFAULT_IMAGE_MODEL = "stabilityai/stable-diffusion-3-5-large"
+DEFAULT_IMAGE_MODEL = "black-forest-labs/flux.1-dev"
 DEFAULT_AUDIO_MODEL = "nvidia/riva-tts"  # text-to-speech, mono
 
 
